@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Icon, Menu, Table } from 'semantic-ui-react'
+import { Icon, Table } from 'semantic-ui-react'
 import { LocationService, ILocation } from '../services/locations.service';
 import { Sort, SortConfig } from '../utils/sort';
 import { useNavigate } from 'react-router-dom';
@@ -8,11 +8,12 @@ const defaultLocations:ILocation[] = [];
 
 const ReadLocation = () => {
   let navigate = useNavigate();
+  const locationService = new LocationService();
   const [APIData, setAPIData]: [ILocation[], (locations: ILocation[]) => void] = useState(defaultLocations);
   const [sortConfig, setSortConfig]: [SortConfig, (config: SortConfig) => void] = useState({key: "", direction: "ascending"});
   const sorter = new Sort(sortConfig, setSortConfig, APIData, setAPIData);
   const readData: () => void  = () => {
-    (new LocationService()).getAll()
+    locationService.getAll()
     .then(response => setAPIData(response.data))
   }
   const onEdit: (data: any) => void = (data) => {
@@ -23,9 +24,10 @@ const ReadLocation = () => {
     if (id == null) {
       return;
     }
-    alert("Are you sure you want to delete this entry?");
-    (new LocationService()).delete(id)
-    .then(() => readData());
+    if (window.confirm("Are you sure you want to delete this entry?")) {
+      locationService.delete(id)
+      .then(() => readData());
+    }
   }
 
   useEffect(() => {readData()}, []);
@@ -38,7 +40,7 @@ const ReadLocation = () => {
           <Table.HeaderCell>Latitude <Icon onClick={() => sorter.requestSort("latitude")} name='sort' /></Table.HeaderCell>
           <Table.HeaderCell>Longitude <Icon onClick={() => sorter.requestSort("longitude")} name='sort' /></Table.HeaderCell>
           <Table.HeaderCell></Table.HeaderCell>
-          <Table.HeaderCell><Icon onClick={() => navigate("/create-teacher")} name='add' /></Table.HeaderCell>
+          <Table.HeaderCell><Icon onClick={() => navigate("/create-location")} name='add' /></Table.HeaderCell>
         </Table.Row>
       </Table.Header>
       

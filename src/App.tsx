@@ -9,6 +9,10 @@ import ReadLocation from './components/read_location';
 import UpdateLocation from './components/update_location';
 import ReadTeacher from './components/read_teacher';
 import CreateTeacher from './components/create_teacher';
+import UpdateTeacher from './components/update_teacher';
+import ReadStyle from './components/read_style';
+import CreateStyle from './components/create_style';
+import UpdateStyle from './components/update_style';
 
 function App() {
   return (
@@ -26,6 +30,10 @@ function App() {
             <Route path='/update-location' element={<UpdateLocation />} />
             <Route path='/read-teacher' element={<ReadTeacher />} />
             <Route path='/create-teacher' element={<CreateTeacher />} />
+            <Route path='/update-teacher' element={<UpdateTeacher />} />
+            <Route path='/read-style' element={<ReadStyle />} />
+            <Route path='/create-style' element={<CreateStyle />} />
+            <Route path='/update-style' element={<UpdateStyle />} />
           </Routes>
         </div>
       </div>

@@ -35,7 +35,7 @@ export class Sort {
 
   requestSort(key: string): void {
     let direction = 'ascending';
-    if (this.sortConfig.key == key && this.sortConfig.direction == 'ascending') {
+    if (this.sortConfig.key === key && this.sortConfig.direction === 'ascending') {
       direction = 'descending';
     }
     this.fnSetConfig({

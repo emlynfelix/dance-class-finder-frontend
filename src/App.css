@@ -47,7 +47,7 @@
   flex-direction: column;
 }
 
-.create-form label{
+label{
   color: whitesmoke !important;
   font-size: 12px !important;
 }

@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 
 const CreateLocation = () => {
   let navigate = useNavigate();
+  const locationService = new LocationService();
 
   const [currentName, setNewName]: [string, (value: string) => void] = useState('');
   const [currentLatitude, setNewLatitude]: [number, (value: number) => void] = useState(-1);
@@ -20,7 +21,7 @@ const CreateLocation = () => {
         latitude: currentLatitude,
         longitude: currentLongitude,
     };
-    (new LocationService()).create(location)
+    locationService.create(location)
     .then(() => {
       navigate('/read-location');
     });
@@ -40,7 +41,7 @@ const CreateLocation = () => {
         <label>Longitude</label>
         <input placeholder='0' onChange={(e) => onChangeLongitude(e.target.value)} />
       </Form.Field>
-      <Button onClick={postData} type='submit'>Submit</Button>
+      <Button onClick={(e) => navigate('/read-location')} type='submit'>Cancel</Button><Button onClick={postData} type='submit'>Submit</Button>
     </Form>
   );
 }
