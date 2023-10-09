@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { createPortal } from 'react-dom';
-import { Icon, Popup, PopupProps, Table } from 'semantic-ui-react'
+import { Icon, Popup, Table } from 'semantic-ui-react'
 import { StyleService, IStyle } from '../services/styles.service';
 import { Sort, SortConfig } from '../utils/sort';
 import { useNavigate } from 'react-router-dom';

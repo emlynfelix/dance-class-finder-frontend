@@ -11,6 +11,7 @@
     "@types/react": "^18.2.24",
     "@types/react-dom": "^18.2.8",
     "axios": "^1.5.1",
+    "jest": "^27.5.1",
     "react": "^18.2.0",
     "react-datetime": "^3.2.0",
     "react-dom": "^18.2.0",
@@ -21,6 +22,7 @@
     "semantic-ui-css": "^2.5.0",
     "semantic-ui-react": "^2.1.4",
     "styled-components": "^6.0.8",
+    "ts-jest": "27.1",
     "typescript": "^4.9.5",
     "web-vitals": "^2.1.4"
   },
@@ -47,5 +49,13 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "jest": {
+    "moduleNameMapper": {
+      "axios": "axios/dist/node/axios.cjs"
+    },
+    "transform": {
+      "\\.(ts|tsx)$": "ts-jest"
+    }
   }
 }

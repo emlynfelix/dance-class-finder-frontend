@@ -13,12 +13,14 @@ import UpdateTeacher from './components/update_teacher';
 import ReadStyle from './components/read_style';
 import CreateStyle from './components/create_style';
 import UpdateStyle from './components/update_style';
+import Navbar from './components/navbar';
 
 function App() {
   return (
     <Router>
       <div className="main">
         <h2 className="main-header">Dance Class Finder</h2>
+        <Navbar />
         <div>
           <Routes>
             <Route path='/' element={<ReadDanceClass />} />

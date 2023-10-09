@@ -5,9 +5,10 @@ import { DanceClassService, IDanceClass } from '../services/dance_classes.servic
 const defaultDanceClasses:IDanceClass[] = [];
 
 const ReadDanceClass = () => {
+  const danceClassService = new DanceClassService();
   const [APIData, setAPIData]: [IDanceClass[], (dance_classes: IDanceClass[]) => void] = useState(defaultDanceClasses);
   useEffect(() => {
-    (new DanceClassService()).getAll()
+    danceClassService.getAll()
     .then(response => setAPIData(response.data));
   }, []);
 
