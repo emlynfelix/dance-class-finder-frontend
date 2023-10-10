@@ -1,5 +1,6 @@
 import React from 'react';
 import './App.css';
+import 'react-datepicker/dist/react-datepicker-cssmodules.css';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import CreateDanceClass from './components/create_dance_class';
 import ReadDanceClass from './components/read_dance_class';

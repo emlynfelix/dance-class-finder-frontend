@@ -12,7 +12,6 @@ const UpdateLocation = () => {
   const [currentLatitude, setNewLatitude]: [number, (value: number) => void] = useState(-1);
   const [currentLongitude, setNewLongitude]: [number, (value: number) => void] = useState(-1);
 
-  const onChangeName = (value: string) => setNewName(value);
   const onChangeLatitude = (value: string) => setNewLatitude(parseFloat(value));
   const onChangeLongitude = (value: string) => setNewLongitude(parseFloat(value));
 
@@ -43,7 +42,7 @@ const UpdateLocation = () => {
     <Form>
       <Form.Field>
         <label>Name</label>
-        <input value={currentName} onChange={(e) => onChangeName(e.target.value)} />
+        <input value={currentName} onChange={(e) => setNewName(e.target.value)} />
       </Form.Field>
       <Form.Field>
         <label>Latitude</label>

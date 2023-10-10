@@ -1,12 +1,23 @@
 import http from '../http-common';
+import { ITeacher } from './teachers.service';
+import { ILocation } from './locations.service';
+
+export interface IDanceClassView {
+  id: number,
+  name: string,
+  start: string,
+  end: string,
+  teacher: ITeacher,
+  location: ILocation,
+};
 
 export interface IDanceClass {
   id?: number,
   name: string,
   start: string,
   end: string,
-  teacher: number,
-  location: number,
+  teacher_id: number,
+  location_id: number,
 };
 
 export class DanceClassService {
