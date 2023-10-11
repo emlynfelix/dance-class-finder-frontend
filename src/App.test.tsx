@@ -1,6 +1,7 @@
 import { render, screen } from '@testing-library/react';
 import App from './App';
 import http from './http-common';
+import { act } from 'react-dom/test-utils';
 
 jest.mock('./http-common');
 const mockedHttp = jest.mocked(http, true);
@@ -13,10 +14,14 @@ describe('Testing App links', () => {
     ['Styles'],
   ])('link exists in the document', (link_text: string) => {
     mockedHttp.get.mockImplementation(() => {
-      return Promise.resolve({ data: [] });
+      return Promise.resolve({ data: {data: []} });
     });
-    render(<App />);
-    const linkElement = screen.getByText(link_text);
-    expect(linkElement).toBeInTheDocument();
+    act(() => {
+      render(<App />);
+    });
+    const linkElements = screen.getAllByText(link_text);
+    linkElements.forEach((linkElement) => {
+      expect(linkElement).toBeInTheDocument();
+    });
   });
 });
