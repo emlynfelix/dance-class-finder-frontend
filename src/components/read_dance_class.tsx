@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { Icon, Table, SemanticICONS } from 'semantic-ui-react'
 import { DanceClassService, IDanceClassView } from '../services/dance_classes.service';
+import { IStyle } from '../services/styles.service';
 import { Sort, SortConfig } from '../utils/sort';
 import { useNavigate } from 'react-router-dom';
 
@@ -60,8 +61,9 @@ const ReadDanceClass = () => {
           <Table.HeaderCell>Name <Icon onClick={() => sorter.requestSort("name")} name='sort' /></Table.HeaderCell>
           <Table.HeaderCell>Start <Icon onClick={() => sorter.requestSort("start")} name='sort' /></Table.HeaderCell>
           <Table.HeaderCell>End <Icon onClick={() => sorter.requestSort("end")} name='sort' /></Table.HeaderCell>
-          <Table.HeaderCell>Teacher <Icon onClick={() => sorter.requestSort("teacher")} name='sort' /></Table.HeaderCell>
-          <Table.HeaderCell>Location <Icon onClick={() => sorter.requestSort("location")} name='sort' /></Table.HeaderCell>
+          <Table.HeaderCell>Teacher <Icon onClick={() => sorter.requestSort("teacher.name")} name='sort' /></Table.HeaderCell>
+          <Table.HeaderCell>Location <Icon onClick={() => sorter.requestSort("location.name")} name='sort' /></Table.HeaderCell>
+          <Table.HeaderCell>Styles</Table.HeaderCell>
           <Table.HeaderCell></Table.HeaderCell>
           <Table.HeaderCell><Icon onClick={() => navigate("/create-dance-class")} name='add' /></Table.HeaderCell>
         </Table.Row>
@@ -76,6 +78,7 @@ const ReadDanceClass = () => {
               <Table.Cell>{data.end}</Table.Cell>
               <Table.Cell>{data.teacher.name} <Icon onClick={() => { if (data.teacher.id) { filterBy("teacher_id", data.teacher.id) } }} name={getFilterIcon("teacher_id")} /></Table.Cell>
               <Table.Cell>{data.location.name} <Icon onClick={() => { if (data.location.id) { filterBy("location_id", data.location.id) } }} name={getFilterIcon("location_id")} /></Table.Cell>
+              <Table.Cell>{data.styles.map((obj: IStyle) => obj.name).join(', ')}</Table.Cell>
               <Table.Cell><Icon onClick={() => onEdit(data)} name='edit' /></Table.Cell>
               <Table.Cell><Icon onClick={() => onDelete(data.id)} name='delete' /></Table.Cell>
             </Table.Row>

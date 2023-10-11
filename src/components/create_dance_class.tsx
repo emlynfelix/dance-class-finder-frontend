@@ -4,24 +4,30 @@ import DatePicker from 'react-datepicker';
 import { IDanceClass, DanceClassService } from '../services/dance_classes.service';
 import { ILocation, LocationService } from '../services/locations.service';
 import { ITeacher, TeacherService } from '../services/teachers.service';
+import { IStyle, StyleService } from '../services/styles.service';
 import { useNavigate } from 'react-router-dom';
 
 const defaultLocations:ILocation[] = [];
 const defaultTeachers:ITeacher[] = [];
+const defaultStyles:IStyle[] = [];
+const defaultStyleIds:number[] = [];
 
 const CreateDanceClass = () => {
   let navigate = useNavigate();
   const danceClassService = new DanceClassService();
   const locationService = new LocationService();
   const teacherService = new TeacherService();
+  const styleService = new StyleService();
 
   const [currentName, setNewName]: [string, (value: string) => void] = useState('');
   const [currentStart, setNewStart]: [Date, (value: Date) => void] = useState(new Date());
   const [currentEnd, setNewEnd]: [Date, (value: Date) => void] = useState(new Date());
   const [currentLocationId, setNewLocationId]: [number, (value: number) => void] = useState(-1);
   const [currentTeacherId, setNewTeacherId]: [number, (value: number) => void] = useState(-1);
+  const [currentStyleIds, setNewStyleIds]: [number[], (value: number[]) => void] = useState(defaultStyleIds);
   const [locations, setLocations]: [ILocation[], (locs: ILocation[]) => void] = useState(defaultLocations);
   const [teachers, setTeachers]: [ITeacher[], (t: ITeacher[]) => void] = useState(defaultTeachers);
+  const [styles, setStyles]: [IStyle[], (s: IStyle[]) => void] = useState(defaultStyles);
 
   const postData = () => {
     const danceClass: IDanceClass = {
@@ -30,6 +36,7 @@ const CreateDanceClass = () => {
         end: currentEnd.toISOString(),
         location_id: currentLocationId,
         teacher_id: currentTeacherId,
+        style_ids: currentStyleIds,
     };
     danceClassService.create(danceClass)
     .then(() => {
@@ -44,6 +51,10 @@ const CreateDanceClass = () => {
   useEffect(() => {
     teacherService.getAll()
     .then((response) => setTeachers(response.data));
+  }, []);
+  useEffect(() => {
+    styleService.getAll()
+    .then((response) => setStyles(response.data));
   }, []);
 
   return (
@@ -88,6 +99,15 @@ const CreateDanceClass = () => {
           fluid
           selection
           options={locations.map((obj) => ({key: obj.name, text: obj.name, value: obj.id}))}
+        />
+      </Form.Field>
+      <Form.Field>
+        <label>Styles</label>
+        <Dropdown
+          placeholder='Styles' 
+          onChange={(e, data) => { if (data.value) { setNewStyleIds(data.value as number[]) } }}
+          fluid multiple selection
+          options={styles.map((obj) => ({key: obj.name, text: obj.name, value: obj.id}))}
         />
       </Form.Field>
       <Button onClick={(e) => navigate('/read-dance-class')} type='submit'>Cancel</Button><Button onClick={postData} type='submit'>Submit</Button>

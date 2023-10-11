@@ -1,6 +1,7 @@
 import http from '../http-common';
 import { ITeacher } from './teachers.service';
 import { ILocation } from './locations.service';
+import { IStyle } from './styles.service';
 
 export interface IDanceClassView {
   id: number,
@@ -9,6 +10,7 @@ export interface IDanceClassView {
   end: string,
   teacher: ITeacher,
   location: ILocation,
+  styles: IStyle[],
 };
 
 export interface IDanceClass {
@@ -18,6 +20,7 @@ export interface IDanceClass {
   end: string,
   teacher_id: number,
   location_id: number,
+  style_ids: number[],
 };
 
 export class DanceClassService {
