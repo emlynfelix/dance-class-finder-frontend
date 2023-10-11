@@ -25,6 +25,20 @@ export class DanceClassService {
     return http.get("/dance_classes");
   }
 
+  getAllFiltered(filters: Map<string, number|null>): Promise<any> {
+    const filterList: string[] = [];
+    filters.forEach((value, key, map) => {
+      if (value != null && value != undefined) {
+        filterList.push(`${key}_filter=${value}`);
+      }
+    });
+    const filterString: string = filterList.join('&');
+    if (filterString) {
+      return http.get(`/dance_classes?${filterString}`);
+    }
+    return this.getAll();
+  }
+
   get(id: number): Promise<any> {
     return http.get(`/dance_classes/${id}`);
   }
